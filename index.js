@@ -15,7 +15,7 @@ async function init() {
  * 	 text: "text response",
  * }
  */
-async handleUserMessage (m) {
+async function handleUserMessage (m) {
 
 	var response = null;
 
@@ -43,7 +43,7 @@ async handleUserMessage (m) {
 /*
  * Handle messages from Admins.
  */
-async handleAdminMessage (m) {
+async function handleAdminMessage (m) {
 
 	var response = null;
 
