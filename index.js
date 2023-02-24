@@ -1,7 +1,6 @@
-const logger = require("/app/logger");
 
 async function init() {
-	logger.blue("initializing...");
+	console.log("initializing...");
 }
 
 module.exports = { init };
