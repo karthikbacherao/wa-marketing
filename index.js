@@ -15,7 +15,7 @@ async function init() {
  * 	 text: "text response",
  * }
  */
-async handleUserMessage (m) {
+async handleCustomerMessage (m) {
 
 	var response = null;
 
