@@ -1,6 +1,5 @@
 const logger = require('ololog'); 
 
-
 /*
  * WhatsApp API Message Handler
  */
@@ -51,7 +50,7 @@ async function handleAdminMessage (m) {
 
 	logger.yellow("message received from admin: " + m);
 
-	return { responseType: "text", text: "Admin message received." };
+	return { responseType: "text", text: "Admin message received" };
 }
 
 module.exports =
