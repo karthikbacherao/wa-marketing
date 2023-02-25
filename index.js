@@ -15,6 +15,7 @@ async function init() {
  * 	 responseType: "text"
  * 	 text: "text response",
  * }
+ *
  */
 async function handleCustomerMessage (m) {
 
