@@ -1,5 +1,6 @@
 const logger = require('ololog'); 
 
+
 /*
  * WhatsApp API Message Handler
  */
@@ -14,8 +15,9 @@ async function init() {
  * 	 responseType: "text"
  * 	 text: "text response",
  * }
+ *
  */
-async handleCustomerMessage (m) {
+async function handleCustomerMessage (m) {
 
 	var response = null;
 
@@ -43,7 +45,7 @@ async handleCustomerMessage (m) {
 /*
  * Handle messages from Admins.
  */
-async handleAdminMessage (m) {
+async function handleAdminMessage (m) {
 
 	var response = null;
 
