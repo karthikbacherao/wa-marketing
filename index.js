@@ -5,7 +5,7 @@ const logger = require('ololog');
  */
 async function init() {
 
-	logger.blue("initializing whatsapp api handler...");
+	logger.red("initializing whatsapp api handler...");
 }
 
 /*
