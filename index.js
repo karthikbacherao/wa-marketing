@@ -1,11 +1,10 @@
 const logger = require('ololog'); 
 
-
 /*
  * WhatsApp API Message Handler
  */
 async function init() {
-	logger.green("initializing...");
+	logger.blue("initializing...");
 }
 
 /*
@@ -15,7 +14,6 @@ async function init() {
  * 	 responseType: "text"
  * 	 text: "text response",
  * }
- *
  */
 async function handleCustomerMessage (m) {
 
