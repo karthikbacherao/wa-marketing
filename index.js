@@ -60,8 +60,7 @@ async function handleAdminMessage (m) {
 
 	}
 	
-
-	// return { responseType: "text", text: "Admin message received" };
+	return { responseType: "text", text: "Admin message received" };
 
 	
 
