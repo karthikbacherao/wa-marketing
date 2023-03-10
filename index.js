@@ -48,6 +48,7 @@ async function handleCustomerMessage (m) {
 
 /*
  * Handle messages from Admins.
+ * 
  */
 async function handleAdminMessage (m) {
 
@@ -55,7 +56,20 @@ async function handleAdminMessage (m) {
 
 	logger.yellow("message received from admin: " + m);
 
+	if(m.type == "text" && m.body =="Hello"|| m.body=="hello")
+	{
+		response = {
+			responseType: "text",
+			text: "Hello, how can I help?",
+		};
+		logger.yellow("response: " + JSON.stringify(response));	
+		return response;
+	}
+	
 	return { responseType: "text", text: "Admin message received" };
+
+	
+
 }
 
 module.exports =
