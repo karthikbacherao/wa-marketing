@@ -1,10 +1,15 @@
 const logger = require('ololog'); 
 
 /*
+ * One more task: install loggly (search for npm loggly)
+ * create a loggly account. https://www.loggly.com/
+ * and configure it to send logs to your loggly account.
+ */
+
+/*
  * WhatsApp API Message Handler.
  */
 async function init() {
-
 	logger.green("initializing whatsapp api handler...");
 }
 
