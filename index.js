@@ -56,7 +56,8 @@ async function handleAdminMessage (m) {
 
 	logger.yellow("message received from admin: ", m);
 
-	if (m.type == "text" && m.text.body =="Hello"|| m.text.body=="hello")
+	if (m.type == "text" && 
+			(m.text.body =="Hello"|| m.text.body=="hello"))
 	{
 		response = {
 			responseType: "text",
