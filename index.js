@@ -51,7 +51,20 @@ async function handleAdminMessage (m) {
 
 	logger.yellow("message received from admin: " + m);
 
-	return { responseType: "text", text: "Admin message received" };
+	if(m.type == "text" && m.body =="Hello")
+	{
+		response = {
+			responseType: "text",
+			text: "Hello, how can I help?",
+		};
+
+	}
+	
+
+	// return { responseType: "text", text: "Admin message received" };
+
+	
+
 }
 
 module.exports =
