@@ -54,7 +54,7 @@ async function handleAdminMessage (m) {
 
 	var response = null;
 
-	logger.yellow("message received from admin: " + m);
+	logger.yellow("message received from admin: ", m);
 
 	if (m.type == "text" && m.text.body =="Hello"|| m.text.body=="hello")
 	{
