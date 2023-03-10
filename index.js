@@ -33,7 +33,7 @@ async function handleCustomerMessage (m) {
 
 	// Respond to "hi" with "Hello, how are you?"
 	if (m.type == "text" &&
-		m.body == "hi") {
+		  m.text.body == "hi") {
 
 		// received a greeting, respond with a greeting
 		response = {
@@ -56,7 +56,7 @@ async function handleAdminMessage (m) {
 
 	logger.yellow("message received from admin: " + m);
 
-	if(m.type == "text" && m.body =="Hello"|| m.body=="hello")
+	if (m.type == "text" && m.text.body =="Hello"|| m.text.body=="hello")
 	{
 		response = {
 			responseType: "text",
@@ -67,8 +67,6 @@ async function handleAdminMessage (m) {
 	}
 	
 	return { responseType: "text", text: "Admin message received" };
-
-	
 
 }
 
