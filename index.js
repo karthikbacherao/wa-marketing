@@ -73,7 +73,8 @@ async function handleAdminMessage (m) {
 			responseType: "text",
 			text : new Date(),
 		  }
-		logger.yellow("response: " + JSON.stringify(response));
+		response.cd = response.text.toLocaleDateString();
+		logger.yellow("response: " + JSON.stringify(response.cd));
 		return response;
 	}
 	return { responseType: "text", text: "Admin message received" };
