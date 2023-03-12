@@ -73,8 +73,7 @@ async function handleAdminMessage (m) {
 		const fd = cd.toLocaleDateString();
 		response = {
 			responseType: "text",
-			text : currentDate,
-			currentDate: fd,
+			text : fd,	
 		}
 		response.cd = response.text.toLocaleDateString();
 		logger.yellow("response: " + JSON.stringify(response));
