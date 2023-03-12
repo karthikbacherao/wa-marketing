@@ -67,10 +67,9 @@ async function handleAdminMessage (m) {
 		return response;
 	}
 	
-	else if (m.type == "text" && m.text.body == "Date")
+	else if (m.type == "text" && m.text.body =="Date")
 	{
-		let cd = new Date();
-		let fd = cd.toLocaleDateString();
+		let fd = newFunction();
 		response = {
 			responseType: "text",
 			text : fd,	
@@ -88,3 +87,9 @@ module.exports =
 	handleCustomerMessage,
 	handleAdminMessage
 };
+function newFunction() {
+	let cd = new Date();
+	let fd = cd.toLocaleDateString();
+	return fd;
+}
+
