@@ -69,8 +69,8 @@ async function handleAdminMessage (m) {
 	
 	else if (m.type == "text" && m.text.body == "Date")
 	{
-		const cd = new Date();
-		const fd = cd.toLocaleDateString();
+		let cd = new Date();
+		let fd = cd.toLocaleDateString();
 		response = {
 			responseType: "text",
 			text : fd,	
