@@ -55,7 +55,7 @@ async function handleAdminMessage (m) {
 	var response = null;
 
 	logger.yellow("message received from admin: ", m);
-
+	// If Hello, respond with a greeting
 	if (m.type == "text" && 
 			(m.text.body =="Hello"|| m.text.body=="hello"))
 	{
@@ -66,13 +66,24 @@ async function handleAdminMessage (m) {
 		logger.yellow("response: " + JSON.stringify(response));	
 		return response;
 	}
-	
+	// if Date, respond with the current date
 	else if (m.type == "text" && m.text.body =="Date")
 	{
-		let fd = newFunction();
+		let fd = formatDate();
 		response = {
 			responseType: "text",
 			text : fd,	
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+	// if Time, respond with current local time
+	else if (m.type == "text" && m.text.body =="Time")
+	{
+		let ft = formatTime();
+		response = {
+			responseType: "text",
+			text : ft,	
 		}
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
@@ -87,9 +98,16 @@ module.exports =
 	handleCustomerMessage,
 	handleAdminMessage
 };
-function newFunction() {
+function formatDate() 
+{
 	let cd = new Date();
 	let fd = cd.toLocaleDateString();
 	return fd;
 }
 
+function formatTime() 
+{
+	let cd = new Date();
+	let ft = cd.toLocaleTimeString();
+	return ft;
+}
