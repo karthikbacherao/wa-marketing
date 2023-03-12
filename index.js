@@ -69,13 +69,16 @@ async function handleAdminMessage (m) {
 	
 	else if (m.type == "text" && m.text.body == "Date")
 	{
+		const cd = new Date();
+		const fd = cd.toLocaleDateString();
 		response = {
 			responseType: "text",
-			text : new Date(),
-		  }
+			text : currentDate,
+			currentDate: fd,
+		}
 		response.cd = response.text.toLocaleDateString();
-		logger.yellow("response: " + JSON.stringify(response.cd));
-		return (response.cd);
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
 	}
 	return { responseType: "text", text: "Admin message received" };
 
