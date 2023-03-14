@@ -51,56 +51,63 @@ async function handleCustomerMessage(m) {
  * Handle messages from Admins.
  * 
  */
+
 async function handleAdminMessage(m) {
 
-	var response = null;
+	try {
+		var response = null;
 
-	logger.yellow("message received from admin: ", m);
-	// If Hello, respond with a greeting
-	if (m.type == "text" &&
-		(m.text.body == "Hello" || m.text.body == "hello")) {
-		response = {
-			responseType: "text",
-			text: "Hello, how can I help?",
-		};
-		logger.yellow("response: " + JSON.stringify(response));
-		return response;
-	}
-	// Respond to sentence queries ex: what is the date / day / time etc.
-
-	else if (m.type == "text" && m.text.body == "Date") {
-		let fd = formatDate();
-		response = {
-			responseType: "text",
-			text: fd,
+		logger.yellow("message received from admin: ", m);
+		// If Hello, respond with a greeting
+		if (m.type == "text" &&
+			(m.text.body == "Hello" || m.text.body == "hello")) {
+			response = {
+				responseType: "text",
+				text: "Hello, how can I help?",
+			};
+			logger.yellow("response: " + JSON.stringify(response));
+			return response;
 		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
-	}
-	// if Time, respond with current local time
-	else if (m.type == "text" && m.text.body == "Time") {
-		let ft = formatTime();
-		response = {
-			responseType: "text",
-			text: ft,
+		// Respond to sentence queries ex: what is the date / day / time etc.
+
+		else if (m.type == "text" && m.text.body == "Date") {
+			let fd = formatDate();
+			response = {
+				responseType: "text",
+				text: fd,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
 		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
-	}
-
-	else if (m.type == "text" && m.text.body == "Day") {
-		let ft = formatDay();
-		response = {
-			responseType: "text",
-			text: ft,
+		// if Time, respond with current local time
+		else if (m.type == "text" && m.text.body == "Time") {
+			let ft = formatTime();
+			response = {
+				responseType: "text",
+				text: ft,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
 		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
+
+		else if (m.type == "text" && m.text.body == "Day") {
+			let ft = formatDay();
+			response = {
+				responseType: "text",
+				text: ft,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
+		}
+
+		return { responseType: "text", text: "Admin message received" };
+
 	}
-
-	return { responseType: "text", text: "Admin message received" };
-
+	catch (error) {
+		fs.writeFileSync('error.log', error.stack);
+	}
 }
+
 
 module.exports =
 {
