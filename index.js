@@ -98,6 +98,7 @@ module.exports =
 	handleCustomerMessage,
 	handleAdminMessage
 };
+
 function formatDate() 
 {
 	let cd = new Date();
