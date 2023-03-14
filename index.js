@@ -67,8 +67,9 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return response;
 	}
-
-	if (m.type == "text") {
+	// Respond to sentence queries ex: what is the date / day / time etc.
+	else {
+		(m.type == "text")
 		response = {
 			responseType: "text",
 			text: result,
@@ -99,7 +100,7 @@ async function handleAdminMessage(m) {
 	} */
 
 
-	return { responseType: "text", text: "Admin message received" };
+	// return { responseType: "text", text: "Admin message received" };
 
 }
 
