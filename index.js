@@ -1,5 +1,6 @@
 const logger = require('ololog');
-const replytoadmin = require('./reply.js');
+const natural = require('natural');
+const tokenizer = new natural.WordTokenizer();
 
 /*
  * One more task: install loggly (search for npm loggly)
@@ -68,13 +69,13 @@ async function handleAdminMessage(m) {
 		return response;
 	}
 	// Respond to sentence queries ex: what is the date / day / time etc.
-	else {
-		(m.type == "text")
+	else if
+		(m.type == "text") {
 		response = {
 			responseType: "text",
 			text: result,
 		}
-		let result = replytoadmin(m);
+		let result = replyquery(m);
 		logger.blue("response: " + JSON.stringify(response));
 
 	}
@@ -122,3 +123,31 @@ function formatTime() {
 	let ft = cd.toLocaleTimeString();
 	return ft;
 } */
+
+function replyquery(query) {
+
+	const tokens = tokenizer.tokenize(query.toLowerCase());
+
+	if (tokens.includes("date")) {
+		const myquery = new Date();
+		const formattedquery = myquery.toLocaleDateString();
+		return (formattedquery);
+
+	}
+
+	else if (tokens.includes("time")) {
+		const myquery = new Date();
+		const formattedquery = myquery.toLocaleTimeString();
+		return (formattedquery);
+
+	}
+
+	else if (tokens.includes("day")) {
+		const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		const mydate = new Date();
+		const dayofweekindex = mydate.getDay();
+		const today = daysofweek[dayofweekindex];
+		return (today);
+	}
+	else return ("I need to learn that!")
+}
