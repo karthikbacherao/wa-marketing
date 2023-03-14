@@ -88,6 +88,15 @@ async function handleAdminMessage(m) {
 		return (response);
 	}
 
+	else if (m.type == "text" && m.text.body == "Day") {
+		let ft = formatDay();
+		response = {
+			responseType: "text",
+			text: ft,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
 
 	return { responseType: "text", text: "Admin message received" };
 
@@ -110,4 +119,12 @@ function formatTime() {
 	let cd = new Date();
 	let ft = cd.toLocaleTimeString();
 	return ft;
-} 
+}
+
+function formatDay() {
+	const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	const mydate = new Date();
+	const dayofweekindex = mydate.getDay();
+	const today = daysofweek[dayofweekindex];
+	return (today);
+}
