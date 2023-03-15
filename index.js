@@ -1,6 +1,5 @@
 const logger = require('ololog');
 
-
 /*
  * One more task: install loggly (search for npm loggly)
  * create a loggly account. https://www.loggly.com/
