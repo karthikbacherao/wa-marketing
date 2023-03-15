@@ -104,7 +104,7 @@ async function handleAdminMessage(m) {
 
 	}
 	catch (error) {
-		fs.writeFileSync('error.log', error.stack);
+		//fs.writeFileSync('error.log', error.stack);
 		console.error(error.stack);
 	}
 }
