@@ -103,7 +103,7 @@ async function handleAdminMessage(m) {
 	return { responseType: "text", text: "Admin message received" };
 
 }
-client.log('hello logly')
+
 
 module.exports =
 {
