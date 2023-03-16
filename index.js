@@ -1,4 +1,5 @@
 const logger = require('ololog');
+const client = require('./node-loggly.js');
 
 /*
  * One more task: install loggly (search for npm loggly)
@@ -54,61 +55,56 @@ async function handleCustomerMessage(m) {
 
 async function handleAdminMessage(m) {
 
-	try {
-		var response = null;
 
-		logger.yellow("message received from admin: ", m);
-		// If Hello, respond with a greeting
-		if (m.type == "text" &&
-			(m.text.body == "Hello" || m.text.body == "hello")) {
-			response = {
-				responseType: "text",
-				text: "Hello, how can I help?",
-			};
-			logger.yellow("response: " + JSON.stringify(response));
-			return response;
-		}
-		// Respond to sentence queries ex: what is the date / day / time etc.
+	var response = null;
 
-		else if (m.type == "text" && m.text.body == "Date") {
-			let fd = formatDate();
-			response = {
-				responseType: "text",
-				text: fd,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-		// if Time, respond with current local time
-		else if (m.type == "text" && m.text.body == "Time") {
-			let ft = formatTime();
-			response = {
-				responseType: "text",
-				text: ft,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-
-		else if (m.type == "text" && m.text.body == "Day") {
-			let ft = formatDay();
-			response = {
-				responseType: "text",
-				text: ft,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-
-		return { responseType: "text", text: "Admin message received" };
-
+	logger.yellow("message received from admin: ", m);
+	// If Hello, respond with a greeting
+	if (m.type == "text" &&
+		(m.text.body == "Hello" || m.text.body == "hello")) {
+		response = {
+			responseType: "text",
+			text: "Hello, how can I help?",
+		};
+		logger.yellow("response: " + JSON.stringify(response));
+		return response;
 	}
-	catch (error) {
-		fs.writeFileSync('error.log', error.stack);
-		console.error(error.stack);
+	// Respond to sentence queries ex: what is the date / day / time etc.
+
+	else if (m.type == "text" && m.text.body == "Date") {
+		let fd = formatDate();
+		response = {
+			responseType: "text",
+			text: fd,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
 	}
+	// if Time, respond with current local time
+	else if (m.type == "text" && m.text.body == "Time") {
+		let ft = formatTime();
+		response = {
+			responseType: "text",
+			text: ft,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+
+	else if (m.type == "text" && m.text.body == "Day") {
+		let ft = formatDay();
+		response = {
+			responseType: "text",
+			text: ft,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+
+	return { responseType: "text", text: "Admin message received" };
+
 }
-
+client.log('Log testing');
 
 module.exports =
 {
