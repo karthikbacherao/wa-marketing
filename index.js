@@ -104,7 +104,9 @@ async function handleAdminMessage(m) {
 	return { responseType: "text", text: "Admin message received" };
 
 }
-client.log('Log testing');
+
+
+
 
 module.exports =
 {
