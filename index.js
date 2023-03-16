@@ -1,5 +1,4 @@
 const logger = require('ololog');
-const client = require('./node-loggly.js');
 
 /*
  * One more task: install loggly (search for npm loggly)
@@ -104,9 +103,7 @@ async function handleAdminMessage(m) {
 	return { responseType: "text", text: "Admin message received" };
 
 }
-
-
-
+client.log('hello logly')
 
 module.exports =
 {
@@ -114,6 +111,10 @@ module.exports =
 	handleCustomerMessage,
 	handleAdminMessage
 };
+
+function newFunction() {
+	return 'testing loggly logs';
+}
 
 function formatDate() {
 	let cd = new Date();
