@@ -111,6 +111,7 @@ async function handleAdminMessage(m) {
 			text: fm,
 		}
 		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
 
 	}
 
