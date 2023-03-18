@@ -59,7 +59,7 @@ async function handleAdminMessage(m) {
 
 
 	var response = null;
-	const tokens = tokenizer.tokenize(m.toLowerCase());
+	//const tokens = tokenizer.tokenize(m.toLowerCase());
 	logger.yellow("message received from admin: ", m);
 
 	// If Hello, respond with a greeting
