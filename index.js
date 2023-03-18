@@ -1,4 +1,7 @@
 const logger = require('ololog');
+const natural = require('natural');
+const tokenizer = new natural.WordTokenizer();
+
 
 /*
  * One more task: install loggly (search for npm loggly)
@@ -56,8 +59,9 @@ async function handleAdminMessage(m) {
 
 
 	var response = null;
-
+	const tokens = tokenizer.tokenize(m.toLowerCase());
 	logger.yellow("message received from admin: ", m);
+
 	// If Hello, respond with a greeting
 	if (m.type == "text" &&
 		(m.text.body == "Hello" || m.text.body == "hello")) {
@@ -71,7 +75,7 @@ async function handleAdminMessage(m) {
 	// Respond to sentence queries ex: what is the date / day / time etc.
 
 	else if (m.type == "text" && m.text.body == "Date") {
-		let fd = formatDate();
+		let fd = new Date().toLocaleDateString();
 		response = {
 			responseType: "text",
 			text: fd,
@@ -81,7 +85,7 @@ async function handleAdminMessage(m) {
 	}
 	// if Time, respond with current local time
 	else if (m.type == "text" && m.text.body == "Time") {
-		let ft = formatTime();
+		let ft = new Date().toLocaleTimeString();
 		response = {
 			responseType: "text",
 			text: ft,
@@ -91,13 +95,23 @@ async function handleAdminMessage(m) {
 	}
 
 	else if (m.type == "text" && m.text.body == "Day") {
-		let ft = formatDay();
+		let fd = formatDay();
 		response = {
 			responseType: "text",
-			text: ft,
+			text: fd,
 		}
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
+	}
+
+	else if (m.type == "text" && m.text.body == "String" && tokens.includes("month")) {
+		let fm = formatMonth();
+		response = {
+			responseType: "text",
+			text: fm,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+
 	}
 
 	return { responseType: "text", text: "Admin message received" };
@@ -112,26 +126,17 @@ module.exports =
 	handleAdminMessage
 };
 
-function newFunction() {
-	return 'testing loggly logs';
+function formatMonth() {
+	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	const currentMonthIndex = new Date().getMonth();
+	const month = monthList[currentMonthIndex];
+	return month;
 }
 
-function formatDate() {
-	let cd = new Date();
-	let fd = cd.toLocaleDateString();
-	return fd;
-}
-
-function formatTime() {
-	let cd = new Date();
-	let ft = cd.toLocaleTimeString();
-	return ft;
-}
 
 function formatDay() {
 	const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-	const mydate = new Date();
-	const dayofweekindex = mydate.getDay();
+	const dayofweekindex = new Date().getDay();
 	const today = daysofweek[dayofweekindex];
 	return (today);
 }
