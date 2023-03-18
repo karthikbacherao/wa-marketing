@@ -1,6 +1,6 @@
 const logger = require('ololog');
-const natural = require('natural');
-const tokenizer = new natural.WordTokenizer();
+/* const natural = require('natural');
+const tokenizer = new natural.WordTokenizer(); */
 
 
 /*
@@ -104,7 +104,7 @@ async function handleAdminMessage(m) {
 		return (response);
 	}
 
-	else if (m.type == "text" && m.text.body == "String" && tokens.includes("month")) {
+	else if (m.type == "text" && m.text.body == "Month") {
 		let fm = formatMonth();
 		response = {
 			responseType: "text",
@@ -131,7 +131,7 @@ function formatMonth() {
 	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	const currentMonthIndex = new Date().getMonth();
 	const month = monthList[currentMonthIndex];
-	return month;
+	return (month);
 }
 
 
