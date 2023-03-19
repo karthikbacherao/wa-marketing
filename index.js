@@ -115,7 +115,7 @@ async function handleAdminMessage(m) {
 	}
 	// if a sentence string is received 
 	//check for keywords and respond accordingly
-	else if (m.type == "text") {
+	else {
 		let fr = custResponse(m);
 		response = {
 			responseType: "text",
@@ -125,7 +125,7 @@ async function handleAdminMessage(m) {
 		return (response);
 	}
 
-	return { responseType: "text", text: "Admin message received" };
+	//return { responseType: "text", text: "Admin message received" };
 
 }
 
@@ -137,7 +137,7 @@ module.exports =
 	handleAdminMessage
 };
 
-function formatMonth() {
+function formattedMonth() {
 	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	const currentMonthIndex = new Date().getMonth();
 	const month = monthList[currentMonthIndex];
@@ -156,7 +156,7 @@ function formatDay() {
 function custResponse(query) {
 	const tokens = tokenizer.tokenize(query.toLowerCase());
 	if (tokens.includes("month")) {
-		const sendReply = formatMonth();
+		const sendReply = formattedMonth();
 		return sendReply;
 	}
 }
