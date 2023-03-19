@@ -1,6 +1,6 @@
 const logger = require('ololog');
-/* const natural = require('natural');
-const tokenizer = new natural.WordTokenizer(); */
+const natural = require('natural');
+const tokenizer = new natural.WordTokenizer();
 
 
 /*
@@ -59,7 +59,6 @@ async function handleAdminMessage(m) {
 
 
 	var response = null;
-	//const tokens = tokenizer.tokenize(m.toLowerCase());
 	logger.yellow("message received from admin: ", m);
 
 	// If Hello, respond with a greeting
@@ -114,6 +113,18 @@ async function handleAdminMessage(m) {
 		return (response);
 
 	}
+	// if a sentence string is received 
+	//check for keywords and respond accordingly
+	else if (m.type == "text" && m.text.body == "String") {
+		let fr = custResponse(m);
+		response = {
+			responseType: "text",
+			text: fr,
+		}
+
+		logger.yellow("response" + JSON.stringify(response));
+		return (response);
+	}
 
 	return { responseType: "text", text: "Admin message received" };
 
@@ -140,4 +151,13 @@ function formatDay() {
 	const dayofweekindex = new Date().getDay();
 	const today = daysofweek[dayofweekindex];
 	return (today);
+}
+
+//if the sentence contains month string. Return current month.
+function custResponse(query) {
+	const tokens = tokenizer.tokenize(query.toLowerCase());
+	if (tokens.includes("month")) {
+		const sendReply = formatMonth();
+		return sendReply;
+	}
 }
