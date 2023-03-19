@@ -59,6 +59,7 @@ async function handleAdminMessage(m) {
 
 
 	var response = null;
+	let abc = typeof m;
 	logger.yellow("message received from admin: ", m);
 
 	// If Hello, respond with a greeting
@@ -114,7 +115,9 @@ async function handleAdminMessage(m) {
 
 	}
 
-
+	else if (m.type == "text" && m.text.body == "Help") {
+		return (JSON.stringify(abc));
+	}
 	return { responseType: "text", text: "Admin message received" };
 
 }
