@@ -115,7 +115,7 @@ async function handleAdminMessage(m) {
 	}
 	// if a sentence string is received 
 	//check for keywords and respond accordingly
-	else if (m.type == "text" && m.text.body === "string") {
+	else if (m.type == "text") {
 		let fr = custResponse(m);
 		response = {
 			responseType: "text",
