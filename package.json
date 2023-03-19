@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ololog": "^1.1.175"
+    "loggly": "^1.1.1",
+    "natural": "^6.2.0",
+    "ololog": "^1.1.175",
+    "winston-loggly-bulk": "^3.2.1"
   }
 }
