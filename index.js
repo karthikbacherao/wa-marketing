@@ -1,24 +1,6 @@
 const logger = require('ololog');
 
 /*
- * One more task: install loggly (search for npm loggly)
- * create a loggly account. https://www.loggly.com/
- * and configure it to send logs to your loggly account.
- */
-
-/*
- * Date: 2023-02-20
- * Here's the next task: Build a simple calendar service. 
- * The service should have the following functionality:
- * 1. When an admin asks for "get free slots", the service will respond with a list of three free time slots in the next three business days. 
- * Business days are Monday to Friday, 8am to 8pm.
- * If I ask for a time slot on Friday evening, the service should respond with the next available time slot on Monday.
- * 2. When an admin says "add an event "call with <name>" at day/time, the service should respond with "ok, I've added "call with <name> at <day/time>" and add it to the calendar.
- * 3. When an admin says "get my schedule", the service should respond with a list of all events for the week based on the list of events in the calendar. 
- * 4. When an admin says "cancel <this event> at <day/time>", the service should respond with "ok, I've cancelled the event at <day/time>" and remove it from the calendar.
- */
-
-/*
  * WhatsApp API Message Handler.
  */
 async function init() {
