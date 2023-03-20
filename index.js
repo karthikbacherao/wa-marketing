@@ -1,6 +1,5 @@
 const logger = require('ololog');
-/* const natural = require('natural');
-const tokenizer = new natural.WordTokenizer(); */
+
 
 
 /*
@@ -114,7 +113,16 @@ async function handleAdminMessage(m) {
 		return (response);
 
 	}
-
+	// check sentence for month
+	else if (typeof m.text.body == "string" && m.text.body.includes("month")) {
+		let fm = formattedMonth();
+		response = {
+			responseType: "text",
+			text: fm,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response)
+	}
 	return { responseType: "text", text: "Admin message received" };
 
 }
