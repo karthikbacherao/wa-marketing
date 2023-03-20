@@ -1,5 +1,7 @@
 const logger = require('ololog');
 
+
+
 /*
  * One more task: install loggly (search for npm loggly)
  * create a loggly account. https://www.loggly.com/
@@ -54,59 +56,75 @@ async function handleCustomerMessage(m) {
 
 async function handleAdminMessage(m) {
 
-	try {
-		var response = null;
 
-		logger.yellow("message received from admin: ", m);
-		// If Hello, respond with a greeting
-		if (m.type == "text" &&
-			(m.text.body == "Hello" || m.text.body == "hello")) {
-			response = {
-				responseType: "text",
-				text: "Hello, how can I help?",
-			};
-			logger.yellow("response: " + JSON.stringify(response));
-			return response;
-		}
-		// Respond to sentence queries ex: what is the date / day / time etc.
+	var response = null;
 
-		else if (m.type == "text" && m.text.body == "Date") {
-			let fd = formatDate();
-			response = {
-				responseType: "text",
-				text: fd,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-		// if Time, respond with current local time
-		else if (m.type == "text" && m.text.body == "Time") {
-			let ft = formatTime();
-			response = {
-				responseType: "text",
-				text: ft,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
+	logger.yellow("message received from admin: ", m);
 
-		else if (m.type == "text" && m.text.body == "Day") {
-			let ft = formatDay();
-			response = {
-				responseType: "text",
-				text: ft,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
+	// If Hello, respond with a greeting
+	if (m.type == "text" &&
+		(m.text.body == "Hello" || m.text.body == "hello")) {
+		response = {
+			responseType: "text",
+			text: "Hello, how can I help?",
+		};
+		logger.yellow("response: " + JSON.stringify(response));
+		return response;
+	}
+	// Respond to sentence queries ex: what is the date / day / time etc.
 
-		return { responseType: "text", text: "Admin message received" };
+	else if (m.type == "text" && m.text.body == "Date") {
+		let fd = new Date().toLocaleDateString();
+		response = {
+			responseType: "text",
+			text: fd,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+	// if Time, respond with current local time
+	else if (m.type == "text" && m.text.body == "Time") {
+		let ft = new Date().toLocaleTimeString();
+		response = {
+			responseType: "text",
+			text: ft,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+
+	else if (m.type == "text" && m.text.body == "Day") {
+		let fd = formatDay();
+		response = {
+			responseType: "text",
+			text: fd,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+
+	else if (m.type == "text" && m.text.body == "Month") {
+		let fm = formattedMonth();
+		response = {
+			responseType: "text",
+			text: fm,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
 
 	}
-	catch (error) {
-		//fs.writeFileSync('error.log', error.stack);
-		console.error(error.stack);
+	// check sentence for month
+	else if (typeof m.text.body == "string" && (m.text.body.includes("month") || m.text.body.includes("Month"))) {
+		let fm = formattedMonth();
+		response = {
+			responseType: "text",
+			text: fm,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response)
 	}
+	return { responseType: "text", text: "Admin message received" };
+
 }
 
 
@@ -117,22 +135,17 @@ module.exports =
 	handleAdminMessage
 };
 
-function formatDate() {
-	let cd = new Date();
-	let fd = cd.toLocaleDateString();
-	return fd;
-}
-
-function formatTime() {
-	let cd = new Date();
-	let ft = cd.toLocaleTimeString();
-	return ft;
+function formattedMonth() {
+	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	const currentMonthIndex = new Date().getMonth();
+	const month = monthList[currentMonthIndex];
+	return (month);
 }
 
 function formatDay() {
 	const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-	const mydate = new Date();
-	const dayofweekindex = mydate.getDay();
+	const dayofweekindex = new Date().getDay();
 	const today = daysofweek[dayofweekindex];
 	return (today);
 }
+
