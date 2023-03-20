@@ -114,7 +114,7 @@ async function handleAdminMessage(m) {
 
 	}
 	// check sentence for month
-	else if (typeof m.text.body == "string" && m.text.body.includes("month")) {
+	else if (typeof m.text.body == "string" && (m.text.body.includes("month") || m.text.body.includes("Month"))) {
 		let fm = formattedMonth();
 		response = {
 			responseType: "text",
