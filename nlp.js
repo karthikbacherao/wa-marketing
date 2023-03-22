@@ -1,8 +1,8 @@
 const natural = require('natural');
 const tokenizer = new natural.WordTokenizer();
 
-function processReply(m) {
-    const tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
+function processReply(m1) {
+    const tokenArray = tokenizer.tokenize(m1.text.body.toLowerCase());
 
 
     if (tokenArray.includes("date") == true) {
