@@ -74,7 +74,7 @@ async function handleAdminMessage(m) {
 	}
 	// Respond to sentence queries ex: what is the date / day / time etc.
 
-	else if (m.type == "text" && m.text.body == "Date") {
+	else if (m.type == "text" && m.text.body === "Date") {
 		let fd = new Date().toLocaleDateString();
 		response = {
 			responseType: "text",
@@ -84,7 +84,7 @@ async function handleAdminMessage(m) {
 		return (response);
 	}
 	// if Time, respond with current local time
-	else if (m.type == "text" && m.text.body == "Time") {
+	else if (m.type == "text" && m.text.body === "Time") {
 		let ft = new Date().toLocaleTimeString();
 		response = {
 			responseType: "text",
@@ -94,7 +94,7 @@ async function handleAdminMessage(m) {
 		return (response);
 	}
 
-	else if (m.type == "text" && m.text.body == "Day") {
+	else if (m.type == "text" && m.text.body === "Day") {
 		let fd = formatDay();
 		response = {
 			responseType: "text",
@@ -104,7 +104,7 @@ async function handleAdminMessage(m) {
 		return (response);
 	}
 
-	else if (m.type == "text" && m.text.body == "Month") {
+	else if (m.type == "text" && m.text.body === "Month") {
 		let fm = formattedMonth();
 		response = {
 			responseType: "text",
