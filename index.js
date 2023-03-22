@@ -1,5 +1,6 @@
 const logger = require('ololog');
-
+const natural = require('natural');
+const userReply = require('./nlp.js');
 
 
 /*
@@ -59,6 +60,7 @@ async function handleAdminMessage(m) {
 
 	var response = null;
 
+
 	logger.yellow("message received from admin: ", m);
 
 	// If Hello, respond with a greeting
@@ -113,9 +115,9 @@ async function handleAdminMessage(m) {
 		return (response);
 
 	}
-	// check sentence for month
-	else if (typeof m.text.body == "string" && (m.text.body.includes("month") || m.text.body.includes("Month"))) {
-		let fm = formattedMonth();
+	// check sentence for keywords and respond accordingly
+	else if (typeof m.text.body === "string") {
+		let fm = userReply(m);
 		response = {
 			responseType: "text",
 			text: fm,
