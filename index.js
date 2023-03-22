@@ -1,6 +1,5 @@
 const logger = require('ololog');
-const natural = require('natural');
-const userReply = require('./nlp.js');
+
 
 
 /*
@@ -13,7 +12,7 @@ const userReply = require('./nlp.js');
  * WhatsApp API Message Handler.
  */
 async function init() {
-	logger.green("initializing whatsapp api handler...");
+	logger.blue("initializing whatsapp api handler...");
 }
 
 /*
@@ -129,14 +128,6 @@ async function handleAdminMessage(m) {
 
 }
 
-
-module.exports =
-{
-	init,
-	handleCustomerMessage,
-	handleAdminMessage
-};
-
 function formattedMonth() {
 	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	const currentMonthIndex = new Date().getMonth();
@@ -151,3 +142,9 @@ function formatDay() {
 	return (today);
 }
 
+module.exports =
+{
+	init,
+	handleCustomerMessage,
+	handleAdminMessage
+};
