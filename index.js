@@ -1,5 +1,5 @@
 const logger = require('ololog');
-const userReply = require('./nlp.js');
+
 
 
 /*
@@ -73,63 +73,53 @@ async function handleAdminMessage(m) {
 		return response;
 	}
 	// Respond to sentence queries ex: what is the date / day / time etc.
-	/*
-		else if (m.type == "text" && m.text.body === "Date") {
-			let fd = new Date().toLocaleDateString();
-			response = {
-				responseType: "text",
-				text: fd,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-		// if Time, respond with current local time
-		else if (m.type == "text" && m.text.body === "Time") {
-			let ft = new Date().toLocaleTimeString();
-			response = {
-				responseType: "text",
-				text: ft,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-	
-		else if (m.type == "text" && m.text.body === "Day") {
-			let fd = formatDay();
-			response = {
-				responseType: "text",
-				text: fd,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-	
-		else if (m.type == "text" && m.text.body === "Month") {
-			let fm = formattedMonth();
-			response = {
-				responseType: "text",
-				text: fm,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-	
-		} */
-	// check sentence for keywords and respond accordingly
 
-	else if (typeof m.text.body === "string") {
-		let fm = userReply(m);
+	else if (m.type == "text" && m.text.body === "Date") {
+		let fd = new Date().toLocaleDateString();
+		response = {
+			responseType: "text",
+			text: fd,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+	// if Time, respond with current local time
+	else if (m.type == "text" && m.text.body === "Time") {
+		let ft = new Date().toLocaleTimeString();
+		response = {
+			responseType: "text",
+			text: ft,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+
+	else if (m.type == "text" && m.text.body === "Day") {
+		let fd = formatDay();
+		response = {
+			responseType: "text",
+			text: fd,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
+
+	else if (m.type == "text" && m.text.body === "Month") {
+		let fm = formattedMonth();
 		response = {
 			responseType: "text",
 			text: fm,
 		}
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
+
 	}
+
 	return { responseType: "text", text: "Admin message received" };
 
 }
 
-/*function formattedMonth() {
+function formattedMonth() {
 	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	const currentMonthIndex = new Date().getMonth();
 	const month = monthList[currentMonthIndex];
@@ -141,7 +131,7 @@ function formatDay() {
 	const dayofweekindex = new Date().getDay();
 	const today = daysofweek[dayofweekindex];
 	return (today);
-}*/
+}
 
 module.exports =
 {
