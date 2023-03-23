@@ -1,5 +1,6 @@
 const logger = require('ololog');
-
+const natural = require('natural');
+const tokenizer = new natural.WordTokenizer();
 
 
 /*
@@ -74,45 +75,57 @@ async function handleAdminMessage(m) {
 	}
 	// Respond to sentence queries ex: what is the date / day / time etc.
 
-	else if (m.type == "text" && m.text.body === "Date") {
-		let fd = new Date().toLocaleDateString();
-		response = {
-			responseType: "text",
-			text: fd,
+	/*	else if (m.type == "text" && m.text.body === "Date") {
+			let fd = new Date().toLocaleDateString();
+			response = {
+				responseType: "text",
+				text: fd,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
 		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
-	}
-	// if Time, respond with current local time
-	else if (m.type == "text" && m.text.body === "Time") {
-		let ft = new Date().toLocaleTimeString();
-		response = {
-			responseType: "text",
-			text: ft,
+		// if Time, respond with current local time
+		else if (m.type == "text" && m.text.body === "Time") {
+			let ft = new Date().toLocaleTimeString();
+			response = {
+				responseType: "text",
+				text: ft,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
 		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
-	}
+	
+		else if (m.type == "text" && m.text.body === "Day") {
+			let fd = formatDay();
+			response = {
+				responseType: "text",
+				text: fd,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
+		}
+	
+		else if (m.type == "text" && m.text.body === "Month") {
+			let fm = formattedMonth();
+			response = {
+				responseType: "text",
+				text: fm,
+			}
+			logger.yellow("response: " + JSON.stringify(response));
+			return (response);
+	
+		} */
 
-	else if (m.type == "text" && m.text.body === "Day") {
-		let fd = formatDay();
+	if (m.text.body == "string") {
+		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
+		let fn = processReply(tokenArray);
+
 		response = {
 			responseType: "text",
-			text: fd,
+			text: fn,
 		}
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
-	}
-
-	else if (m.type == "text" && m.text.body === "Month") {
-		let fm = formattedMonth();
-		response = {
-			responseType: "text",
-			text: fm,
-		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
-
 	}
 
 	return { responseType: "text", text: "Admin message received" };
@@ -131,6 +144,36 @@ function formatDay() {
 	const dayofweekindex = new Date().getDay();
 	const today = daysofweek[dayofweekindex];
 	return (today);
+}
+
+function processReply(tokenArray) {
+
+	if (tokenArray.includes("date")) {
+		const date = new Date().toLocaleDateString();
+		return (date);
+	}
+
+	else if (tokenArray.includes("month")) {
+		const allmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		const monthindex = new Date().getMonth();
+		const currentmonth = allmonth[monthindex];
+		return currentmonth;
+	}
+
+	else if (tokenArray.includes("time")) {
+		const time = new Date().toLocaleTimeString();
+		return time;
+	}
+
+	else if (tokenArray.includes("day")) {
+		const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		const dayofweekindex = new Date().getDay();
+		const today = daysofweek[dayofweekindex];
+		return (today);
+	}
+
+	return ("No Response");
+
 }
 
 module.exports =
