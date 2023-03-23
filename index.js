@@ -68,7 +68,7 @@ async function handleAdminMessage(m) {
 		(m.text.body == "Hello" || m.text.body == "hello")) {
 		response = {
 			responseType: "text",
-			text: "Hello, how can I help?",
+			text: "Hello, what is your query",
 		};
 		logger.yellow("response: " + JSON.stringify(response));
 		return response;
@@ -132,7 +132,6 @@ async function handleAdminMessage(m) {
 	return { responseType: "text", text: "Admin message received" };
 
 }
-
 
 function processReply(tokenArray) {
 
