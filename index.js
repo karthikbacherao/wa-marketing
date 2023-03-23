@@ -116,8 +116,8 @@ async function handleAdminMessage(m) {
 	
 		} */
 
-	if (m.text.body === "string") {
-		var tokenArray = tokenizer.tokenize(m.text.body);
+	if (typeof m.text.body === "string") {
+		var tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
 		var fn = processReply(tokenArray);
 
 		response = {
