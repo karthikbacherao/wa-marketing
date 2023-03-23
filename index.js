@@ -116,7 +116,7 @@ async function handleAdminMessage(m) {
 	
 		} */
 
-	if (m.text.body == "string") {
+	if (m.text.body === "string") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
 		let fn = processReply(tokenArray);
 
@@ -131,7 +131,7 @@ async function handleAdminMessage(m) {
 	return { responseType: "text", text: "Admin message received" };
 
 }
-
+/*
 function formattedMonth() {
 	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	const currentMonthIndex = new Date().getMonth();
@@ -145,12 +145,12 @@ function formatDay() {
 	const today = daysofweek[dayofweekindex];
 	return (today);
 }
-
+*/
 function processReply(tokenArray) {
 
 	if (tokenArray.includes("date")) {
 		const date = new Date().toLocaleDateString();
-		return (date);
+		return date;
 	}
 
 	else if (tokenArray.includes("month")) {
@@ -169,7 +169,7 @@ function processReply(tokenArray) {
 		const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		const dayofweekindex = new Date().getDay();
 		const today = daysofweek[dayofweekindex];
-		return (today);
+		return today;
 	}
 
 	return ("No Response");
