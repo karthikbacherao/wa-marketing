@@ -63,7 +63,7 @@ async function handleAdminMessage(m) {
 
 	logger.yellow("message received from admin: ", m);
 
-	// If Hello, respond with a greeting
+	/* // If Hello, respond with a greeting
 	if (m.type == "text" &&
 		(m.text.body == "Hello" || m.text.body == "hello")) {
 		response = {
@@ -75,7 +75,7 @@ async function handleAdminMessage(m) {
 	}
 	// Respond to sentence queries ex: what is the date / day / time etc.
 
-	/*	else if (m.type == "text" && m.text.body === "Date") {
+		else if (m.type == "text" && m.text.body === "Date") {
 			let fd = new Date().toLocaleDateString();
 			response = {
 				responseType: "text",
@@ -117,8 +117,8 @@ async function handleAdminMessage(m) {
 		} */
 
 	if (typeof m.text.body === "string") {
-		var tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		var fn = processReply(tokenArray);
+		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
+		let fn = processReply(tokenArray);
 
 		response = {
 			responseType: "text",
