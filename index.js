@@ -132,21 +132,8 @@ async function handleAdminMessage(m) {
 	return { responseType: "text", text: "Admin message received" };
 
 }
-/*
-function formattedMonth() {
-	const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	const currentMonthIndex = new Date().getMonth();
-	const month = monthList[currentMonthIndex];
-	return (month);
-}
 
-function formatDay() {
-	const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-	const dayofweekindex = new Date().getDay();
-	const today = daysofweek[dayofweekindex];
-	return (today);
-}
-*/
+
 function processReply(tokenArray) {
 
 	if (tokenArray.includes("date")) {
@@ -173,7 +160,7 @@ function processReply(tokenArray) {
 		return today;
 	}
 
-	return ("No Response");
+	return ("no response");
 
 }
 
