@@ -1,7 +1,7 @@
 const logger = require('ololog');
 const natural = require('natural');
 const tokenizer = new natural.WordTokenizer();
-const callApp = require('./calendarApp.js');
+const callApp = require('./calendarApp');
 
 
 /*
