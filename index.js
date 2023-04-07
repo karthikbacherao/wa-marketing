@@ -132,7 +132,7 @@ async function handleAdminMessage(m) {
 	}
 	if (m.type == "text" && m.text.body.includes("add") && m.text.body.includes("event")) {
 
-		let ae = callApp.calAppMain(m);
+		const ae = await callApp.calAppMain(m);
 
 		response = {
 			responseType: "text",
