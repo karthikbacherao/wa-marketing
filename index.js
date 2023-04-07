@@ -1,6 +1,7 @@
 const logger = require('ololog');
 const natural = require('natural');
 const tokenizer = new natural.WordTokenizer();
+const callApp = require('./calendarApp.js');
 
 
 /*
@@ -47,6 +48,7 @@ async function handleCustomerMessage(m) {
 	}
 
 	logger.blue("response: " + JSON.stringify(response));
+
 	return response;
 }
 
@@ -128,10 +130,22 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
+	if (m.type == "text" && m.text.body.includes("add") && m.text.body.includes("event")) {
 
+		let ae = callApp.calAppMain(m);
+
+		response = {
+			responseType: "text",
+			text: ae,
+		}
+		logger.yellow("response: " + JSON.stringify(response));
+		return (response);
+	}
 	return { responseType: "text", text: "Admin message received" };
 
 }
+
+
 
 function processReply(tokenArray) {
 
