@@ -11,25 +11,23 @@ const uri = "mongodb+srv://bskarthik:bskbhag123@cluster0.xkvbtje.mongodb.net/?re
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
-function calAppMain(ut) {
+function calAppMain(inputText) {
 
-    const eventDetails = eventOrg(ut);
+    const eventDetails = eventOrg(inputText);
 
     if (typeof eventDetails === "string") {
         return (eventDetails);
     }
 
-    else if (ut.text.body.includes("add") && ut.text.body.includes("event") && typeof eventDetails !== "string") {
+    else if (inputText.includes("add") && inputText.includes("event") && typeof eventDetails !== "string") {
         if (eventDetails !== null && typeof eventDetails === 'object') {
             return addEvent(eventDetails).then(showR1 => {
                 return showR1;
             });
-
-
         }
     }
 
-    else if (ut.text.body.includes("cancel") || ut.text.body.includes("delete") && ut.text.body.includes("event")) {
+    else if (inputText.includes("cancel") || inputText.includes("delete") && inputText.includes("event")) {
         //let eventDetails = eventOrg(ut);
         return deleteEvent(eventDetails).then(showR2 => {
 
@@ -37,12 +35,12 @@ function calAppMain(ut) {
         });
     }
 
-    else if (ut.text.body.includes("get") && ut.text.body.includes("schedule")) {
+    else if (inputText.includes("get") && inputText.includes("schedule")) {
 
         getEventSchedule();
     }
 
-    else if (ut.text.body.includes("get") && ut.text.body.includes("free") && ut.text.body.includes("slot")) {
+    else if (inputText.includes("get") && inputText.includes("free") && inputText.includes("slot")) {
         nextAvailableSlot();
     }
     else {
@@ -54,14 +52,14 @@ function calAppMain(ut) {
 
 
 
-function eventOrg(ut) {
+function eventOrg(inputText) {
 
-    if (ut.text.body.includes("get") && ut.text.body.includes("schedule")) {
+    if (inputText.includes("get") && inputText.includes("schedule")) {
 
         return null;
     }
 
-    if (ut.text.body.includes("get") && ut.text.body.includes("free") && ut.text.body.includes("slot")) {
+    if (inputText.includes("get") && inputText.includes("free") && inputText.includes("slot")) {
         return null;
     }
 
@@ -69,20 +67,20 @@ function eventOrg(ut) {
     //const checkDayInput = ['mon', 'tue', 'wed', 'thu', 'fri'];
 
     // capture event title & name from user input
-    const str = ut.text.body;
-    const eventTitleStart = str.indexOf("call ");
-    const eventTitleEnd = str.indexOf(" at ");
-    const et = str.substring(eventTitleStart, eventTitleEnd);
+
+    const eventTitleStart = inputText.indexOf("call ");
+    const eventTitleEnd = inputText.indexOf(" at ");
+    const et = inputText.substring(eventTitleStart, eventTitleEnd);
 
     // capture name of the person to call
-    const etNameStart = str.indexOf("with ") + "with ".length;
-    const etName = str.substring(etNameStart, eventTitleEnd);
+    const etNameStart = inputText.indexOf("with ") + "with ".length;
+    const etName = inputText.substring(etNameStart, eventTitleEnd);
 
 
 
     // parse the user input to capture event day
     const dayRegex = /(?<day>monday|mon|tuesday|tue|wednesday|wed|thursday|thu|friday|fri|sat|saturday|sun|sunday)/i;
-    const dayCapture = ut.text.body.match(dayRegex);
+    const dayCapture = inputText.match(dayRegex);
     if (dayCapture !== null && dayCapture.groups !== undefined) {
         dayCapture.groups.day = dayCapture.groups.day.toLowerCase();
 
@@ -122,7 +120,7 @@ function eventOrg(ut) {
     //console.log(edm);
     // parse the user input to capture event time
     const timeRegex = /(?<hours>0?[1-9]|1[0-2])(?:[:.](?<minutes>0?\d{1,2}))?\s*(?<ampm>am|pm)/i;
-    const timeCapture = ut.text.body.match(timeRegex);
+    const timeCapture = inputText.match(timeRegex);
     const oh = parseInt(timeCapture.groups.hours, 10);
     const om = parseInt(timeCapture.groups.minutes, 10);
 
