@@ -2,7 +2,7 @@ const logger = require('ololog');
 const natural = require('natural');
 const tokenizer = new natural.WordTokenizer();
 const t1 = require('./times');
-//const callApp = require('./calendarApp');
+const callApp = require('./calendarApp');
 
 
 /*
@@ -88,9 +88,9 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
-	/* if (m.type == "text" && m.text.body.includes("add") && m.text.body.includes("event")) {
+	if (m.type == "text" && m.text.body.includes("add") && m.text.body.includes("event")) {
 
-		const ae = await callApp.calAppMain(m);
+		const ae = await callApp.calAppMain(m.text.body);
 
 		response = {
 			responseType: "text",
@@ -99,42 +99,13 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
-	return { responseType: "text", text: "Admin message received" }; */
+	return { responseType: "text", text: "Admin message received" };
 
 }
 
 
 
-/* function processReply(tokenArray) {
 
-	if (tokenArray.includes("date")) {
-		const date = new Date().toLocaleDateString();
-		return date;
-	}
-
-	else if (tokenArray.includes("month")) {
-		const allmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-		const monthindex = new Date().getMonth();
-		const currentmonth = allmonth[monthindex];
-		return currentmonth;
-	}
-
-	else if (tokenArray.includes("time")) {
-		const time = new Date().toLocaleTimeString();
-		return time;
-	}
-
-	else if (tokenArray.includes("day")) {
-		const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-		const dayofweekindex = new Date().getDay();
-		const today = daysofweek[dayofweekindex];
-		return today;
-	}
-
-	return ("no response");
-
-}
- */
 module.exports =
 {
 	init,
