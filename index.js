@@ -1,7 +1,8 @@
 const logger = require('ololog');
 const natural = require('natural');
 const tokenizer = new natural.WordTokenizer();
-const callApp = require('./calendarApp');
+const t1 = require('./times');
+//const callApp = require('./calendarApp');
 
 
 /*
@@ -75,53 +76,10 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return response;
 	}
-	/*
-	// Respond to sentence queries ex: what is the date / day / time etc.
-
-		else if (m.type == "text" && m.text.body === "Date") {
-			let fd = new Date().toLocaleDateString();
-			response = {
-				responseType: "text",
-				text: fd,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-		// if Time, respond with current local time
-		else if (m.type == "text" && m.text.body === "Time") {
-			let ft = new Date().toLocaleTimeString();
-			response = {
-				responseType: "text",
-				text: ft,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-	
-		else if (m.type == "text" && m.text.body === "Day") {
-			let fd = formatDay();
-			response = {
-				responseType: "text",
-				text: fd,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-		}
-	
-		else if (m.type == "text" && m.text.body === "Month") {
-			let fm = formattedMonth();
-			response = {
-				responseType: "text",
-				text: fm,
-			}
-			logger.yellow("response: " + JSON.stringify(response));
-			return (response);
-	
-		} */
 
 	if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		let fn = processReply(tokenArray);
+		let fn = t1(tokenArray);
 
 		response = {
 			responseType: "text",
@@ -130,7 +88,7 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
-	if (m.type == "text" && m.text.body.includes("add") && m.text.body.includes("event")) {
+	/* if (m.type == "text" && m.text.body.includes("add") && m.text.body.includes("event")) {
 
 		const ae = await callApp.calAppMain(m);
 
@@ -141,13 +99,13 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
-	return { responseType: "text", text: "Admin message received" };
+	return { responseType: "text", text: "Admin message received" }; */
 
 }
 
 
 
-function processReply(tokenArray) {
+/* function processReply(tokenArray) {
 
 	if (tokenArray.includes("date")) {
 		const date = new Date().toLocaleDateString();
@@ -176,7 +134,7 @@ function processReply(tokenArray) {
 	return ("no response");
 
 }
-
+ */
 module.exports =
 {
 	init,
