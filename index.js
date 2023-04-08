@@ -77,7 +77,7 @@ async function handleAdminMessage(m) {
 		return response;
 	}
 
-	/* else if (m.type == "text" && m.text.body != "Hello") {
+	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
 		let fn = t1(tokenArray);
 
@@ -87,8 +87,8 @@ async function handleAdminMessage(m) {
 		}
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
-	} */
-	else if (m.type == "text" && m.text.body !== "Hi" && m.text.body !== "Hello") {
+	}
+	/* else if (m.type == "text" && m.text.body !== "Hi" && m.text.body !== "Hello") {
 
 		const ae = await callApp.calAppMain(m.text.body);
 
@@ -99,6 +99,7 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
+ */
 	return { responseType: "text", text: "Admin message received" };
 
 }
