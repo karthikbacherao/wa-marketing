@@ -1,7 +1,7 @@
 const logger = require('ololog');
 const natural = require('natural');
-const tokenizer = new natural.WordTokenizer();
-const t1 = require('./times');
+const tokenizer = new natural.RegexpTokenizer({ pattern: /\s+/ });
+const times = require('./times');
 const callApp = require('./calendarApp');
 
 
@@ -79,7 +79,7 @@ async function handleAdminMessage(m) {
 
 	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		let fn = t1(tokenArray);
+		let fn = processInput(tokenArray);
 
 		response = {
 			responseType: "text",
@@ -88,22 +88,25 @@ async function handleAdminMessage(m) {
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
-	/* else if (m.type == "text" && m.text.body !== "Hi" && m.text.body !== "Hello") {
 
-		const ae = await callApp.calAppMain(m.text.body);
-
-		response = {
-			responseType: "text",
-			text: ae,
-		}
-		logger.yellow("response: " + JSON.stringify(response));
-		return (response);
-	}
- */
 	return { responseType: "text", text: "Admin message received" };
 
 }
 
+function processInput(tokenArray) {
+
+
+	return tokenArray.forEach((token) => {
+		if (token === "event" || token === "schedule" || token === "slots") {
+			return callApp.calAppMain(tokenArray);
+		}
+
+		else if (token === "date" || token === "time" || token === "day" || token === "month") {
+			return times(tokenArray);
+		}
+	});
+
+}
 
 
 
