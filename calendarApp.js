@@ -11,8 +11,9 @@ const uri = "mongodb+srv://bskarthik:bskbhag123@cluster0.xkvbtje.mongodb.net/?re
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
-function calAppMain(inputText) {
+function calAppMain(tokenArray) {
 
+    const inputText = tokenArray.join(' ');
     const eventDetails = eventOrg(inputText);
 
     if (typeof eventDetails === "string") {
