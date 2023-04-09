@@ -97,7 +97,7 @@ function processInput(tokenArray) {
 
 	let queryResult;
 
-	tokenArray.forEach(async (token) => {
+	return tokenArray.forEach(async (token) => {
 		if (token === "event" || token === "schedule" || token === "slots") {
 			queryResult = await callApp.calAppMain(tokenArray);
 		}
@@ -105,8 +105,12 @@ function processInput(tokenArray) {
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
 			queryResult = await times(tokenArray);
 		}
+
+		queryResult.then((data) => {
+			return data;
+		});
 	});
-	return queryResult;
+
 }
 
 
