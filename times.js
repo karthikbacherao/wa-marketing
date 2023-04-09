@@ -1,5 +1,5 @@
 
-function processReply(tokenArray) {
+async function processReply(tokenArray) {
 
     if (tokenArray.includes("date")) {
         const date = new Date().toLocaleDateString();
