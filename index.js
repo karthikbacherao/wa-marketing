@@ -95,17 +95,18 @@ async function handleAdminMessage(m) {
 
 function processInput(tokenArray) {
 
+	let queryResult;
 
-	return tokenArray.forEach((token) => {
+	tokenArray.forEach((token) => {
 		if (token === "event" || token === "schedule" || token === "slots") {
-			return callApp.calAppMain(tokenArray);
+			queryResult = callApp.calAppMain(tokenArray);
 		}
 
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
-			return times(tokenArray);
+			queryResult = times(tokenArray);
 		}
 	});
-
+	return queryResult;
 }
 
 
