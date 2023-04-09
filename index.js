@@ -93,7 +93,7 @@ async function handleAdminMessage(m) {
 
 }
 
-async function processInput(tokenArray) {
+function processInput(tokenArray) {
 
 	let queryResult;
 
