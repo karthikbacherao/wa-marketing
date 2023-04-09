@@ -79,7 +79,8 @@ async function handleAdminMessage(m) {
 
 	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		let fn = processInput(tokenArray);
+		let fn = await
+			processInput(tokenArray);
 
 		response = {
 			responseType: "text",
@@ -95,6 +96,7 @@ async function handleAdminMessage(m) {
 
 function processInput(tokenArray) {
 
+
 	for (let i = 0; i <= tokenArray.length; i++) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "schedule" || token === "slots") {
@@ -106,6 +108,8 @@ function processInput(tokenArray) {
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
 			return times(tokenArray);
 		}
+		else
+			return ("cannot understand query");
 
 	}
 
