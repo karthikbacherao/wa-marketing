@@ -97,7 +97,7 @@ async function handleAdminMessage(m) {
 function processInput(tokenArray) {
 
 
-	for (let i = 0; i <= tokenArray.length; i++) {
+	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "schedule" || token === "slots") {
 			return callApp.calAppMain(tokenArray).then((data) => {
