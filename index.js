@@ -82,7 +82,6 @@ async function handleAdminMessage(m) {
 
 
 		let fn = await processInput(tokenArray)
-			.then((data) => { return data; });
 
 		response = {
 			responseType: "text",
@@ -98,15 +97,13 @@ async function handleAdminMessage(m) {
 }
 
 
-function processInput(tokenArray) {
+async function processInput(tokenArray) {
 
-	let response;
+
 	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "schedule" || token === "slots") {
-			return response = callApp.calAppMain(tokenArray).then((data) => {
-				return data;
-			});
+			return await callApp.calAppMain(tokenArray)
 
 		}
 
