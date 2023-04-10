@@ -79,12 +79,16 @@ async function handleAdminMessage(m) {
 
 	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		let fn = await processInput(tokenArray);
-		fn.then((data) => { return data });
-		response = {
-			responseType: "text",
-			text: fn,
-		}
+
+		try {
+			let fn = await processInput(tokenArray);
+
+
+			response = {
+				responseType: "text",
+				text: fn,
+			}
+		} catch (error) { return error };
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
@@ -93,28 +97,26 @@ async function handleAdminMessage(m) {
 
 }
 
-async function processInput(tokenArray) {
 
-	try {
-		for (let i = 0; i < tokenArray.length; i++) {
-			const token = tokenArray[i];
-			if (token === "event" || token === "schedule" || token === "slots") {
-				const response = await callApp.calAppMain(tokenArray)
-				response.then((data) => {
-					return data;
-				});
-				return response;
-			}
+function processInput(tokenArray) {
 
-			else if (token === "date" || token === "time" || token === "day" || token === "month") {
-				return times(tokenArray);
-			}
-			else
-				return ("cannot understand query");
 
+	for (let i = 0; i < tokenArray.length; i++) {
+		const token = tokenArray[i];
+		if (token === "event" || token === "schedule" || token === "slots") {
+			const response = callApp.calAppMain(tokenArray);
+			response.then((data) => {
+				return data;
+			});
+			return response;
 		}
-	} catch (error) {
-		return ("Cound not fetch response to your query");
+
+		else if (token === "date" || token === "time" || token === "day" || token === "month") {
+			return times(tokenArray);
+		}
+		else
+			return ("cannot understand query");
+
 	}
 
 }
