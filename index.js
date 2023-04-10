@@ -80,15 +80,15 @@ async function handleAdminMessage(m) {
 	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
 
-		try {
-			let fn = await processInput(tokenArray);
+
+		let fn = await processInput(tokenArray);
 
 
-			response = {
-				responseType: "text",
-				text: fn,
-			}
-		} catch (error) { return error };
+		response = {
+			responseType: "text",
+			text: fn,
+		}
+
 		logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
