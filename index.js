@@ -81,8 +81,8 @@ async function handleAdminMessage(m) {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
 
 
-		let fn = await processInput(tokenArray);
-
+		let fn = await processInput(tokenArray)
+			.then((data) => { return data; });
 
 		response = {
 			responseType: "text",
@@ -100,11 +100,11 @@ async function handleAdminMessage(m) {
 
 function processInput(tokenArray) {
 
-
+	let response;
 	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "schedule" || token === "slots") {
-			const response = callApp.calAppMain(tokenArray);
+			response = callApp.calAppMain(tokenArray);
 			response.then((data) => {
 				return data;
 			});
