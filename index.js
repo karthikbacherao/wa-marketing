@@ -110,9 +110,6 @@ async function processInput(tokenArray) {
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
 			return times(tokenArray);
 		}
-		else
-			return ("cannot understand query");
-
 	}
 
 }
