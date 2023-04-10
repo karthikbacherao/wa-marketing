@@ -79,10 +79,8 @@ async function handleAdminMessage(m) {
 
 	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		let fn = await processInput(tokenArray).then((data1) => {
-			return data1;
-		});
-
+		let fn = await processInput(tokenArray);
+		fn.then((data) => { return data });
 		response = {
 			responseType: "text",
 			text: fn,
@@ -101,11 +99,11 @@ async function processInput(tokenArray) {
 		for (let i = 0; i < tokenArray.length; i++) {
 			const token = tokenArray[i];
 			if (token === "event" || token === "schedule" || token === "slots") {
-				const response = await callApp.calAppMain(tokenArray).then((data) => {
+				const response = await callApp.calAppMain(tokenArray)
+				response.then((data) => {
 					return data;
 				});
 				return response;
-
 			}
 
 			else if (token === "date" || token === "time" || token === "day" || token === "month") {
