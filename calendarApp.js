@@ -28,7 +28,7 @@ async function calAppMain(tokenArray) {
 
     else if (inputText.includes("cancel") || inputText.includes("delete") && inputText.includes("event")) {
         //let eventDetails = eventOrg(ut);
-        return await deleteEvent(eventDetails)
+        return await deleteEvent(eventDetails);
     }
 
     else if (inputText.includes("get") && inputText.includes("schedule")) {
