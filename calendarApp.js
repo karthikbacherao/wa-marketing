@@ -11,7 +11,7 @@ const uri = "mongodb+srv://bskarthik:bskbhag123@cluster0.xkvbtje.mongodb.net/?re
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
-function calAppMain(tokenArray) {
+async function calAppMain(tokenArray) {
 
     const inputText = tokenArray.join(' ');
     const eventDetails = eventOrg(inputText);
@@ -22,18 +22,13 @@ function calAppMain(tokenArray) {
 
     else if (inputText.includes("add") && inputText.includes("event") && typeof eventDetails !== "string") {
         if (eventDetails !== null && typeof eventDetails === 'object') {
-            return addEvent(eventDetails).then(showR1 => {
-                return showR1;
-            });
+            return await addEvent(eventDetails);
         }
     }
 
     else if (inputText.includes("cancel") || inputText.includes("delete") && inputText.includes("event")) {
         //let eventDetails = eventOrg(ut);
-        return deleteEvent(eventDetails).then(showR2 => {
-
-            return (showR2);
-        });
+        return await deleteEvent(eventDetails)
     }
 
     else if (inputText.includes("get") && inputText.includes("schedule")) {
