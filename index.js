@@ -99,11 +99,11 @@ async function handleAdminMessage(m) {
 
 async function processInput(tokenArray) {
 
-
+	let response;
 	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "schedule" || token === "slots") {
-			return await callApp.calAppMain(tokenArray)
+			response = await callApp.calAppMain(tokenArray);
 
 		}
 
@@ -111,7 +111,7 @@ async function processInput(tokenArray) {
 			return times(tokenArray);
 		}
 	}
-
+	return response;
 }
 
 
