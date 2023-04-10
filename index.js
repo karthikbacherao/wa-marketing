@@ -79,7 +79,7 @@ async function handleAdminMessage(m) {
 
 	else if (m.type == "text" && m.text.body != "Hello") {
 		let tokenArray = tokenizer.tokenize(m.text.body.toLowerCase());
-		let fn = await
+		let fn =
 			processInput(tokenArray);
 
 		response = {
@@ -94,23 +94,28 @@ async function handleAdminMessage(m) {
 
 }
 
-function processInput(tokenArray) {
+async function processInput(tokenArray) {
 
+	try {
+		for (let i = 0; i < tokenArray.length; i++) {
+			const token = tokenArray[i];
+			if (token === "event" || token === "schedule" || token === "slots") {
+				const response = await callApp.calAppMain(tokenArray).then((data) => {
+					return data;
+				});
+				return response;
 
-	for (let i = 0; i < tokenArray.length; i++) {
-		const token = tokenArray[i];
-		if (token === "event" || token === "schedule" || token === "slots") {
-			return callApp.calAppMain(tokenArray).then((data) => {
-				return data;
-			});
+			}
+
+			else if (token === "date" || token === "time" || token === "day" || token === "month") {
+				return times(tokenArray);
+			}
+			else
+				return ("cannot understand query");
+
 		}
-
-		else if (token === "date" || token === "time" || token === "day" || token === "month") {
-			return times(tokenArray);
-		}
-		else
-			return ("cannot understand query");
-
+	} catch (error) {
+		return ("Cound not fetch response to your query");
 	}
 
 }
