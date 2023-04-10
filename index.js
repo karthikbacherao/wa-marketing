@@ -104,11 +104,10 @@ function processInput(tokenArray) {
 	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "schedule" || token === "slots") {
-			response = callApp.calAppMain(tokenArray);
-			response.then((data) => {
+			return response = callApp.calAppMain(tokenArray).then((data) => {
 				return data;
 			});
-			return response;
+
 		}
 
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
