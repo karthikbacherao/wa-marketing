@@ -18,7 +18,7 @@ async function weeklySchedule() {
         if (col === 'cnSunday' || col === 'cnSaturday') {
             continue;
         }
-        else if (days === currentDay || days < currentDay) {
+        else if (parseInt(days, 10) === currentDay && currentHour >= 20 || parseInt(days, 10) < currentDay) {
             continue;
         }
         const collection = db.collection(col);
@@ -28,7 +28,7 @@ async function weeklySchedule() {
         }
         await collection.deleteMany({ eventTime: { $lt: currentTime } })
         let result = await collection.find().sort({ eventTime: 1 }).toArray();
-        if (result === null && currentHour <= 20) {
+        if (result === null && currentHour < 20) {
             continue;
         }
         else {
