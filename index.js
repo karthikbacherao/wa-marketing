@@ -3,6 +3,7 @@ const natural = require('natural');
 const tokenizer = new natural.RegexpTokenizer({ pattern: /\s+/ });
 const times = require('./times');
 const callApp = require('./calendarApp');
+const getSchedule = require('./geteventschedule');
 
 
 /*
@@ -88,7 +89,7 @@ async function handleAdminMessage(m) {
 			text: fn,
 		}
 
-		logger.yellow("response: " + JSON.stringify(response));
+		//logger.yellow("response: " + JSON.stringify(response));
 		return (response);
 	}
 
@@ -102,8 +103,13 @@ async function processInput(tokenArray) {
 	let response;
 	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
-		if (token === "event" || token === "schedule" || token === "slots") {
+		if (token === "event" || token === "add" || token === "delete") {
 			response = await callApp.calAppMain(tokenArray);
+
+
+		}
+		else if (token === "get" || token === "schedule") {
+			response = await getSchedule();
 
 		}
 
