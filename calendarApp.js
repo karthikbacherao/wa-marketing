@@ -311,14 +311,15 @@ async function addEvent(eventDetails) {
         }
         //check for duplicate time event
         const result = await collection.findOne(query);
-        if (result !== null) {
-            //console.log("1. Event already exists");
-            return ("an event already exists at that time");
-        }
-        else {
+        if (result === null) {
             await collection.insertOne(eventDetails);
             const eventAddSucess = `ok, added event ${eventDetails.title} at ${eventDetails.day} /${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
             return (eventAddSucess);
+
+        }
+        else {
+            //console.log("1. Event already exists");
+            return ("an event already exists at that time");
         }
     }
 
