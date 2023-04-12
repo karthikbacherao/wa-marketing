@@ -4,6 +4,7 @@ const currentDay = new Date().getDay();
 const CurrentTime = new Date().getTime();
 const currentHour = new Date().getHours();
 
+
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -29,11 +30,6 @@ async function calAppMain(tokenArray) {
     else if (inputText.includes("cancel") || inputText.includes("delete") && inputText.includes("event")) {
         //let eventDetails = eventOrg(ut);
         return await deleteEvent(eventDetails);
-    }
-
-    else if (inputText.includes("get") && inputText.includes("schedule")) {
-
-        getEventSchedule();
     }
 
     else if (inputText.includes("get") && inputText.includes("free") && inputText.includes("slot")) {
@@ -289,59 +285,6 @@ async function nextAvailableSlot() {
 }
 
 
-//Find and post the list of events for the current week
-
-async function getEventSchedule() {
-    var newCurrentDay = currentDay;
-
-    try {
-        await client.connect();
-        console.log("connected to database eventMaster");
-        const db = client.db("eventMaster");
-
-        // if friday night / sat / sun. set the next working day to monday
-        if (currentDay === 6 || currentDay === 0) {
-            newCurrentDay = 1;
-        }
-        else if (currentDay === 5 && currentHour >= 20) {
-            newCurrentDay = 1;
-        }
-
-        for (let i = newCurrentDay; i <= 5; i++) {
-
-            let temp = 'cn' + daysOfWeek[i];
-            let collName = db.collection(temp);
-            let docCount = await collName.countDocuments({});
-            if (docCount === 0) {
-                continue;
-            }
-            // delete past events
-            await collName.deleteMany({ eventTime: { $lt: CurrentTime } });
-
-            // console.log(`Obosolete event docs deleted ${outDatedEvent.deletedCount} from collection ${temp}`);
-
-            let result = await collName.find().sort({ eventTime: 1 }).toArray();
-
-            if (result !== null) {
-                console.log(`${result[0].day}`);
-                for (const event of result) {
-                    const { title, time } = event;
-                    const formattedTime = `${time.hours}.${time.minutes} ${time.apm}`
-                    console.log(`${title} ${formattedTime}`);
-                }
-            }
-        }
-
-    } catch (error) {
-        console.log
-    }
-    finally {
-        await client.close();
-        console.log("disconnected from db");
-    }
-}
-
-
 //function to add events
 async function addEvent(eventDetails) {
 
@@ -419,4 +362,4 @@ async function deleteEvent(eventDetails) {
         // console.log("client is closed");
     }
 }
-module.exports = { eventOrg, addEvent, deleteEvent, calAppMain, getEventSchedule, nextAvailableSlot };
+module.exports = { eventOrg, addEvent, deleteEvent, calAppMain, nextAvailableSlot };
