@@ -3,7 +3,7 @@ const newDate = new Date(currentDate);
 const currentDay = new Date().getDay();
 const CurrentTime = new Date().getTime();
 const currentHour = new Date().getHours();
-
+const natural = require('natural');
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -60,13 +60,14 @@ function eventOrg(inputText) {
 
     // capture event title & name from user input
 
-    const eventTitleStart = inputText.indexOf("call ");
+    const eventTitleStart = inputText.indexOf("event") + "event ".length;
     const eventTitleEnd = inputText.indexOf(" at ");
     const et = inputText.substring(eventTitleStart, eventTitleEnd);
 
     // capture name of the person to call
-    const etNameStart = inputText.indexOf("with ") + "with ".length;
-    const etName = inputText.substring(etNameStart, eventTitleEnd);
+    const tokenizer = new natural.RegexpTokenizer({ pattern: /\s+/ });
+    const tokenArray = tokenizer.tokenize(inputText);
+    const etName = tokenArray[tokenArray.indexOf("at") - 1];
 
 
 
@@ -316,7 +317,7 @@ async function addEvent(eventDetails) {
         }
 
         await collection.insertOne(eventDetails);
-        const eventAddSucess = `ok, added call with ${eventDetails.name} at ${eventDetails.day} /${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
+        const eventAddSucess = `ok, added event ${eventDetails.title} at ${eventDetails.day} /${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
         return (eventAddSucess);
     }
 
@@ -351,7 +352,7 @@ async function deleteEvent(eventDetails) {
         const result = await collection.findOneAndDelete(query);
 
         if (result.value !== null) {
-            const eventDeleteSucess = `ok, deleted call with ${eventDetails.name} at ${eventDetails.day}/${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
+            const eventDeleteSucess = `ok, deleted event ${eventDetails.title} at ${eventDetails.day}/${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
             return (eventDeleteSucess);
         }
         return ("Entered event does not exist!");
