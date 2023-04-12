@@ -294,14 +294,14 @@ async function addEvent(eventDetails) {
     }
     const collectionName = "cn" + eventDetails.day;
     //console.log(collectionName);
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 
     try {
         await client.connect();
         //console.log("1. connected to database");
         const collection = client.db("eventMaster").collection(collectionName);
 
-        const result1 = await collection.deleteMany({ eventTime: { $lt: CurrentTime } });
+        await collection.deleteMany({ eventTime: { $lt: CurrentTime } });
         //console.log(`deleted obosolete events ${result1.deletedCount} from collection ${collectionName}`)
 
         const query = {
@@ -315,10 +315,11 @@ async function addEvent(eventDetails) {
             //console.log("1. Event already exists");
             return ("an event already exists at that time");
         }
-
-        await collection.insertOne(eventDetails);
-        const eventAddSucess = `ok, added event ${eventDetails.title} at ${eventDetails.day} /${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
-        return (eventAddSucess);
+        else {
+            await collection.insertOne(eventDetails);
+            const eventAddSucess = `ok, added event ${eventDetails.title} at ${eventDetails.day} /${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
+            return (eventAddSucess);
+        }
     }
 
     catch (error) {
@@ -334,14 +335,14 @@ async function addEvent(eventDetails) {
 async function deleteEvent(eventDetails) {
     const collectionName = "cn" + eventDetails.day;
     // console.log(collectionName);
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 
     try {
         await client.connect();
         // console.log("2. connected to database");
         const collection = client.db("eventMaster").collection(collectionName);
 
-        const outDatedEvent = await collection.deleteMany({ eventTime: { $lt: CurrentTime } });
+        await collection.deleteMany({ eventTime: { $lt: CurrentTime } });
         // console.log(`deleted obosolete events ${outDatedEvent.deletedCount} from collection ${collection}`)
 
         const query = {
