@@ -4,6 +4,7 @@ const currentDay = new Date().getDay();
 const CurrentTime = new Date().getTime();
 const currentHour = new Date().getHours();
 const natural = require('natural');
+const getSlots = require('./geteventslots');
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -23,7 +24,8 @@ async function calAppMain(tokenArray) {
 
     else if (inputText.includes("add") && inputText.includes("event") && typeof eventDetails !== "string") {
         if (eventDetails !== null && typeof eventDetails === 'object') {
-            return await addEvent(eventDetails);
+            const sendOutput = await addEvent(eventDetails);
+            return sendOutput;
         }
     }
 
@@ -32,9 +34,6 @@ async function calAppMain(tokenArray) {
         return await deleteEvent(eventDetails);
     }
 
-    else if (inputText.includes("get") && inputText.includes("free") && inputText.includes("slot")) {
-        nextAvailableSlot();
-    }
     else {
         console.log("Enter/Delete an event or View your schedule");
     }
@@ -152,43 +151,44 @@ function eventOrg(inputText) {
     }
 
     else if (edm === 6 || edm === 0) {
-        console.log("Next available slots to add an event are listed below:");
-        nextAvailableSlot();
+        return (`Type: <get free slots> to see next available event slots`);
+
+
     }
 
     if (dayCapture.groups.day == "Saturday" || dayCapture.groups.day == "Sunday") {
-        console.log("Next available slots to store an event are listed below");
-        nextAvailableSlot();
+        return (`Type: <get free slots> to see next available event slots`);
+
     }
 
     else if (oh < 8 && timeCapture.groups.ampm == 'am') {
 
-        console.log(" Event should be set between 8am to 8pm only");
-        nextAvailableSlot();
+        return (" Event should be set between 8am to 8pm only");
+
     }
 
     else if (oh > 8 && oh != 12 && timeCapture.groups.ampm == 'pm') {
 
-        console.log(" Event should be set between 8am to 8pm only");
-        nextAvailableSlot();
+        return (" Event should be set between 8am to 8pm only");
+
 
     }
 
     else if (oh > 8 && oh == 12 && timeCapture.groups.ampm == 'am') {
-        console.log(" Event should be set between 8am to 8pm only");
-        nextAvailableSlot();
+        return (" Event should be set between 8am to 8pm only");
+
     }
 
     else if (oh == 8 && om >> 0 && timeCapture.groups.ampm == 'pm') {
 
-        console.log(" Event should be set between 8am to 8pm only");
-        nextAvailableSlot();
+        (" Event should be set between 8am to 8pm only");
+        return;
     }
 
     else if (currentDay == edm) {
 
-        console.log(" Below are the time slots available to add an event");
-        nextAvailableSlot();
+        return (`Type: <get free slots> to see next available event slots`);
+
     }
     // feed the captured title, time and day details into one object.
 
@@ -207,82 +207,6 @@ function eventOrg(inputText) {
             }
         }
     }
-}
-
-async function nextAvailableSlot() {
-    var nextSlotDay = currentDay;
-    var newDay;
-
-    await client.connect();
-    console.log("connected to database eventMaster");
-    const db = client.db("eventMaster");
-
-
-    for (let count = 0; count <= 2; count++) {
-
-        if (nextSlotDay >= 6 || nextSlotDay === 0) {
-            newDay = 1;
-        }
-        else {
-            newDay = 0;
-        }
-
-        if (nextSlotDay === 5 && currentHour >= 20 && nextSlotDay !== 6 && nextSlotDay !== 0) {
-            nextSlotDay = 1;
-        }
-
-
-        // change the collection to on the next working day
-        console.log(nextSlotDay, currentHour);
-        let temp = 'cn' + daysOfWeek[(nextSlotDay % 6) + newDay];
-        console.log(temp);
-        let collName = db.collection(temp);
-
-        // delete past events
-        await collName.deleteMany({ eventTime: { $lt: CurrentTime } });
-
-        //if no events on working day, display the whole day as available 
-        // and increment to the next working day
-        let docCount = await collName.countDocuments({});
-
-        if (docCount === 0 && nextSlotDay !== currentDay) {
-            console.log(`Time Slots available on ${daysOfWeek[(nextSlotDay % 6) + newDay]}`);
-            console.log("8:00:00 am to 8:00:00 pm");
-        }
-
-
-
-        let result = await collName.find().sort({ eventTime: 1 }).toArray();
-        try {
-            // sort through collection and display available slots for the next 3 working days
-            if (result !== null) {
-                let len = result.length;
-                console.log(`Time Slots available on ${result[0].day}`);
-
-                if (CurrentTime < result[0].eventStartTime) {
-                    console.log(`${new Date(result[0].eventStartTime).toLocaleTimeString()} to ${new Date(result[0].eventTime - 60000).toLocaleTimeString()}`)
-                }
-
-                else {
-                    console.log(`${new Date().toLocaleTimeString()} to ${new Date(result[0].eventTime - 60000).toLocaleTimeString()}`);
-                }
-                for (let m = 0; m < result.length; m++) {
-
-                    console.log(`${new Date(result[m].eventTime + 60000).toLocaleTimeString()} to ${new Date(result[m + 1].eventTime - 60000).toLocaleTimeString()}`);
-                    if (m = result.length - 1) { break; }
-
-                }
-
-                console.log(`${new Date(result[len - 1].eventTime + 60000).toLocaleTimeString()} to ${new Date(result[0].eventEndTime).toLocaleTimeString()}`);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-        nextSlotDay++;
-    }
-
-    await client.close();
-    console.log("disconnected from db");
 }
 
 
@@ -365,4 +289,4 @@ async function deleteEvent(eventDetails) {
         // console.log("client is closed");
     }
 }
-module.exports = { eventOrg, addEvent, deleteEvent, calAppMain, nextAvailableSlot };
+module.exports = { eventOrg, addEvent, deleteEvent, calAppMain };
