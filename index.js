@@ -107,10 +107,10 @@ async function processInput(tokenArray) {
 		if (token === "event" || token === "add" || token === "delete") {
 			response = await callApp.calAppMain(tokenArray);
 		}
-		else if (token === "get" || token === "free" || token === "slot") {
+		else if (token === "free" || token === "slot") {
 			response = await getSlots();
 		}
-		else if (token === "get" || token === "schedule") {
+		else if (token === "schedule") {
 			response = await getSchedule();
 		}
 
