@@ -87,11 +87,11 @@ async function weeklySchedule() {
     }
 
     await client.close();
-    console.log("disconnected from db");
+    //console.log("disconnected from db");
 
     JSON.stringify(outputArray);
     const newline = outputArray.join(' ').replace(/#/g, '\n');
-    console.log(newline);
+    return (newline);
 }
 
 module.exports = weeklySchedule;
