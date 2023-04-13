@@ -4,6 +4,7 @@ const tokenizer = new natural.RegexpTokenizer({ pattern: /\s+/ });
 const times = require('./times');
 const callApp = require('./calendarApp');
 const getSchedule = require('./geteventschedule');
+const getSlots = require('./geteventslots');
 
 
 /*
@@ -105,12 +106,12 @@ async function processInput(tokenArray) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "add" || token === "delete") {
 			response = await callApp.calAppMain(tokenArray);
-
-
+		}
+		else if (token === "get" || token === "free" || token === "slot") {
+			response = await getSlots();
 		}
 		else if (token === "get" || token === "schedule") {
 			response = await getSchedule();
-
 		}
 
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
