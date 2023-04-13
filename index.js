@@ -106,19 +106,23 @@ async function processInput(tokenArray) {
 		const token = tokenArray[i];
 		if (token === "event" || token === "add" || token === "delete") {
 			response = await callApp.calAppMain(tokenArray);
+			return response;
 		}
-		else if (token === "free" || token === "slot") {
+		else if (token === "free" || token === "slots") {
 			response = await getSlots();
+			return response;
 		}
 		else if (token === "schedule") {
 			response = await getSchedule();
+			return response;
 		}
 
 		else if (token === "date" || token === "time" || token === "day" || token === "month") {
 			return times(tokenArray);
+
 		}
 	}
-	return response;
+
 }
 
 
