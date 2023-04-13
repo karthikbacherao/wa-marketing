@@ -2,7 +2,7 @@ const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 const currentDay = new Date().getDay();
 const currentTime = Date.now();
 const currentHour = new Date().getHours();
-const currentMinutes = new Date().getMinutes();
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://bskarthik:bskbhag123@cluster0.xkvbtje.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -12,7 +12,7 @@ async function weeklySchedule() {
     var newDay;
     let outputArray = [];
     await client.connect();
-    console.log("connected to database eventMaster");
+    //console.log("connected to database eventMaster");
     const db = client.db("eventMaster");
 
 
