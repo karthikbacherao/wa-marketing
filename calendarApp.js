@@ -2,9 +2,9 @@ const currentDate = new Date();
 const newDate = new Date(currentDate);
 const currentDay = new Date().getDay();
 const CurrentTime = new Date().getTime();
-const currentHour = new Date().getHours();
+
 const natural = require('natural');
-const getSlots = require('./geteventslots');
+
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -22,12 +22,16 @@ async function calAppMain(tokenArray) {
         return (eventDetails);
     }
 
-    else if (inputText.includes("add") && inputText.includes("event") && typeof eventDetails !== "string") {
-        if (eventDetails !== null && typeof eventDetails === 'object') {
-            const sendOutput = await addEvent(eventDetails);
-            return sendOutput;
-        }
+    else if (eventDetails === null) {
+        return ("entered input is invalid. Please try again!");
     }
+
+    else if (inputText.includes("add") && inputText.includes("event") && typeof eventDetails === 'object') {
+
+        const sendOutput = await addEvent(eventDetails);
+        return sendOutput;
+    }
+
 
     else if (inputText.includes("cancel") || inputText.includes("delete") && inputText.includes("event")) {
         //let eventDetails = eventOrg(ut);
@@ -246,7 +250,6 @@ async function addEvent(eventDetails) {
             return ("an event already exists at that time");
         }
     }
-
     catch (error) {
         console.error(error);
     }
@@ -281,7 +284,9 @@ async function deleteEvent(eventDetails) {
             const eventDeleteSucess = `ok, deleted event ${eventDetails.title} at ${eventDetails.day}/${eventDetails.time.hours}:${eventDetails.time.minutes}${eventDetails.time.apm}`;
             return (eventDeleteSucess);
         }
-        return ("Entered event does not exist!");
+        else {
+            return ("Entered event does not exist!");
+        }
 
     } catch (error) { console.error(error); }
     finally {
