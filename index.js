@@ -104,15 +104,15 @@ async function processInput(tokenArray) {
 	let response;
 	for (let i = 0; i < tokenArray.length; i++) {
 		const token = tokenArray[i];
-		if (token === "event" || token === "add" || token === "delete") {
+		if (token === "add" || token === "delete" && token === "event") {
 			response = await callApp.calAppMain(tokenArray);
 			return response;
 		}
-		else if (token === "free" || token === "slots") {
+		else if (token === "free" && token === "slots") {
 			response = await getSlots();
 			return response;
 		}
-		else if (token === "schedule") {
+		else if (token === "schedule" && token === "event") {
 			response = await getSchedule();
 			return response;
 		}
@@ -124,8 +124,6 @@ async function processInput(tokenArray) {
 	}
 
 }
-
-
 
 module.exports =
 {
