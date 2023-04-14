@@ -47,6 +47,8 @@ async function weeklySchedule() {
         if (docCount === 0 && nextSlotDay !== currentDay) {
             outputArray.push(`Time Slots available on ${daysOfWeek[(nextSlotDay % 6) + newDay]}#`);
             outputArray.push(`8:00:00 am to 8:00:00 pm#`);
+            nextSlotDay++;
+            continue;
         }
         else if (docCount === 0 && nextSlotDay === currentDay && currentHour < 20) {
             outputArray.push(`Time Slots available on ${daysOfWeek[currentDay]}#`);
