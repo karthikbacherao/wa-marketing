@@ -19,7 +19,8 @@ async function weeklySchedule() {
             continue;
         }
         else if (col === 'cnFriday' && currentHour >= 20) {
-            return (" No events scheduled on the weekend");
+            outputArray.push(" No events scheduled on the weekend#");
+            break;
         }
         else if (parseInt(days, 10) === currentDay && currentHour >= 20 || parseInt(days, 10) < currentDay) {
             continue;
