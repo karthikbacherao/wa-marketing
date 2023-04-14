@@ -55,6 +55,7 @@ async function weeklySchedule() {
             outputArray.push(`${new Date().toLocaleTimeString()} to 8:00:00 pm#`);
             nextSlotDay++;
             continue;
+
         }
         //let outDatedEvent = await collName.deleteMany({ eventTime: { $lt: CurrentTime } });
 
