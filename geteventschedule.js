@@ -16,7 +16,8 @@ async function weeklySchedule() {
         const col = `cn${daysOfWeek[days]}`;
         //console.log(col, days);
         if (col === 'cnSunday' || col === 'cnSaturday') {
-            continue;
+            outputArray.push("No events scheduled on the weekend");
+            break;
         }
         else if (col === 'cnFriday' && currentHour >= 20) {
             outputArray.push(" No events scheduled on the weekend#");
