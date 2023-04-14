@@ -112,7 +112,7 @@ async function processInput(tokenArray) {
 			response = await getSlots();
 			return response;
 		}
-		else if (token === "schedule" && token === "event") {
+		else if (token === "schedule") {
 			response = await getSchedule();
 			return response;
 		}
