@@ -8,23 +8,26 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function weeklySchedule() {
     let outputArray = [];
-
     await client.connect();
+    const db = client.db('eventMaster');
     //console.log("connected to db");
     for (const days in daysOfWeek) {
-        const db = client.db('eventMaster');
-        const col = `cn${daysOfWeek[days]}`;
-        //console.log(col, days);
-        if (col === 'cnSunday' || col === 'cnSaturday') {
 
-            continue;
+        if (currentDay === 6 || currentDay === 0) {
+            outputArray = ["No events scheduled for the weekend"];
+            break;
         }
         else if (currentDay === 5 && currentHour >= 20) {
             outputArray = ["No events scheduled for the weekend"];
             break;
         }
-
         else if (parseInt(days, 10) === currentDay && currentHour >= 20 || parseInt(days, 10) < currentDay) {
+            continue;
+        }
+
+        const col = `cn${daysOfWeek[days]}`;
+        //console.log(col, days);
+        if (col === 'cnSunday' || col === 'cnSaturday') {
             continue;
         }
         const collection = db.collection(col);
