@@ -108,7 +108,7 @@ async function processInput(tokenArray) {
 			response = await callApp.calAppMain(tokenArray);
 			return response;
 		}
-		else if (token === "free" || token === "slots") {
+		else if (token === "slots") {
 			response = await getSlots();
 			return response;
 		}
