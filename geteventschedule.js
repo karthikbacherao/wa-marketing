@@ -10,7 +10,7 @@ async function weeklySchedule() {
     let outputArray = [];
 
     await client.connect();
-    console.log("connected to db");
+    //console.log("connected to db");
     for (const days in daysOfWeek) {
         const db = client.db('eventMaster');
         const col = `cn${daysOfWeek[days]}`;
