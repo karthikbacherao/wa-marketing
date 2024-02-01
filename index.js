@@ -6,7 +6,6 @@ const callApp = require('./calendarApp');
 const getSchedule = require('./geteventschedule');
 const getSlots = require('./geteventslots');
 
-/* hi there */
 /*
  * One more task: install loggly (search for npm loggly)
  * create a loggly account. https://www.loggly.com/
